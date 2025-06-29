@@ -33,9 +33,15 @@ def mainLine(ctx, x=0, y=0):
 def line(ctx, x1=0, y1=0, x2=0, y2=0):
     ctx.stroke_segment(905, 500, 1095, 500)
 
+def sideX(ctx, x=0, y=0):
+    ctx.stroke_segment(920, 290, 1080, 220)
+    ctx.stroke_segment(920, 220, 1080, 290)
+
 def strSave(ctx):
     ctx.stroke_rect(900, 900, 200, 200)
     ctx.stroke_rect(950, 950, 100, 100)
+
+
      
 
 
@@ -60,8 +66,7 @@ def main():
 
 
     ctx.line_width = 20
-    ctx.stroke_segment(920, 290, 1080, 220)
-    ctx.stroke_segment(920, 220, 1080, 300)
+
 
 
 
