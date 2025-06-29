@@ -9,7 +9,7 @@ paint = pixie.Paint(pixie.SOLID_PAINT)
 paint.color = pixie.parse_color("#000000")
 
 
-def smallCurve(image, x, y):
+def smallCurve(image, x=0, y=0):
     path = pixie.parse_path(
     """
     M 900 200
@@ -18,7 +18,7 @@ def smallCurve(image, x, y):
     )
     image.stroke_path(path, paint, stroke_width=20)
         
-def bigCurve(image, x, y):
+def bigCurve(image, x=0, y=0):
     path = pixie.parse_path(
         """
         M 1150 200
@@ -27,10 +27,10 @@ def bigCurve(image, x, y):
     )
     image.stroke_path(path, paint, stroke_width=20)
 
-def mainLine(ctx, x, y):
+def mainLine(ctx, x=0, y=0):
     ctx.stroke_segment(x, y, 1000, 1000)
 
-def line(ctx, x1, y1, x2, y2):
+def line(ctx, x1=0, y1=0, x2=0, y2=0):
     ctx.stroke_segment(905, 500, 1095, 500)
 
 def strSave(ctx):
@@ -55,7 +55,7 @@ def main():
     ctx = image.new_context()
     ctx.stroke_style = paint
     ctx.line_width = 25
-    mainLine(ctx)
+    mainLine(ctx, 1000, 200)
     bigCurve(image)
 
 
@@ -65,7 +65,7 @@ def main():
 
 
 
-    image.write_file("NordicSpellCrafting/trying.png")
+    image.write_file("trying.png")
 
 
     # Sideways
