@@ -18,7 +18,7 @@ def smallCurve(image, x=0, y=0):
     )
     image.stroke_path(path, paint, stroke_width=20)
         
-def bigCurve(image, x=0, y=0):
+def bigCurve(image): # This is only used in the top most section of the initial rune
     path = pixie.parse_path(
         """
         M 1150 200
@@ -31,7 +31,7 @@ def mainLine(ctx, x=0, y=0):
     ctx.stroke_segment(x, y, 1000, 1000)
 
 def line(ctx, x1=0, y1=0, x2=0, y2=0):
-    ctx.stroke_segment(905, 500, 1095, 500)
+    ctx.stroke_segment(910, 260, 1090, 260)
 
 def sideX(ctx, x=0, y=0):
     ctx.stroke_segment(920, 290, 1080, 220)
@@ -66,6 +66,7 @@ def main():
 
 
     ctx.line_width = 20
+    line(ctx)
 
 
 
