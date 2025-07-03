@@ -37,6 +37,42 @@ def sideX(ctx, x=0, y=0):
     ctx.stroke_segment(920, 290, 1080, 220)
     ctx.stroke_segment(920, 220, 1080, 290)
 
+def pointUp(ctx):
+    ctx.stroke_segment(925, 280, 1006, 195)
+    ctx.stroke_segment(994, 195, 1075, 280)
+
+def curveDown(image):
+    path = pixie.parse_path(
+    """
+    M 925 275
+    A 75 75 90 0 1 1075 275
+    """
+    )
+    image.stroke_path(path, paint, stroke_width=20)
+
+def halfArrowR(ctx):
+    ctx.stroke_segment(1005, 205, 1050, 310)
+
+
+def keyblade(ctx):
+    ctx.stroke_segment(1000, 210, 1080, 210)
+    ctx.stroke_segment(1000, 240, 1080, 240)
+
+def equals(ctx):
+    ctx.stroke_segment(950, 230, 1050, 230)
+    ctx.stroke_segment(950, 255, 1050, 255)
+
+def flag(image):
+    path = pixie.parse_path(
+    """
+    M 1000 220
+    L 1060 270
+    L 1000 320
+    """
+    )
+    image.stroke_path(path, paint, stroke_width=20)
+
+
 def strSave(ctx):
     ctx.stroke_rect(900, 900, 200, 200)
     ctx.stroke_rect(950, 950, 100, 100)
@@ -62,12 +98,11 @@ def main():
     ctx.stroke_style = paint
     ctx.line_width = 25
     mainLine(ctx, 1000, 200)
-    bigCurve(image)
+    smallCurve(image)
 
 
     ctx.line_width = 20
-    line(ctx)
-
+    equals(ctx)
 
 
 
