@@ -27,6 +27,17 @@ def bigCurve(image): # This is only used in the top most section of the initial 
     )
     image.stroke_path(path, paint, stroke_width=20)
 
+def halfRec(ctx):
+    ctx.stroke_segment(850, 200, 850, 350)
+    ctx.stroke_segment(840, 350, 1160, 350)
+    ctx.stroke_segment(1150, 350, 1150, 200)
+
+def smallHalfRec(ctx):
+    ctx.stroke_segment(850, 200, 850, 325)
+    ctx.stroke_segment(840, 325, 1160, 325)
+    ctx.stroke_segment(1150, 325, 1150, 200)
+
+
 def mainLine(ctx, x=0, y=0):
     ctx.stroke_segment(x, y, 1000, 1000)
 
@@ -50,6 +61,16 @@ def curveDown(image):
     )
     image.stroke_path(path, paint, stroke_width=20)
 
+def lineCirc(image):
+    path = pixie.parse_path(
+    """
+    M 950 250
+    A 50 50 90 0 1 1050 250
+    A 50 50 90 0 1 950 250
+    """
+    )
+    image.stroke_path(path, paint, stroke_width=20)
+
 def halfArrowR(ctx):
     ctx.stroke_segment(1005, 205, 1050, 310)
 
@@ -59,8 +80,8 @@ def keyblade(ctx):
     ctx.stroke_segment(1000, 240, 1080, 240)
 
 def equals(ctx):
-    ctx.stroke_segment(950, 230, 1050, 230)
-    ctx.stroke_segment(950, 255, 1050, 255)
+    ctx.stroke_segment(925, 240, 1075, 240)
+    ctx.stroke_segment(925, 270, 1075, 270)
 
 def flag(image):
     path = pixie.parse_path(
@@ -98,11 +119,10 @@ def main():
     ctx.stroke_style = paint
     ctx.line_width = 25
     mainLine(ctx, 1000, 200)
-    smallCurve(image)
 
 
     ctx.line_width = 20
-    equals(ctx)
+    smallHalfRec(ctx)
 
 
 

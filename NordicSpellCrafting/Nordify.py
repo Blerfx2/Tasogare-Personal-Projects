@@ -1,6 +1,4 @@
 
-git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
 
 class Spell:
     def __init__(spell, comp1, comp2, comp3, comp4):
