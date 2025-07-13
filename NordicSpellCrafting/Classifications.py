@@ -187,11 +187,186 @@ def strSave(ctx):
 class Identity:
     def __init__(spell, name):
         spell.name = name
-        spell.damage = 0
         spell.x = 1000 # x and y are more like the center of where to put any symbol
+        spell.y
+
+class School(Identity):
+    def __init__(spell, name):
+        super().__init__(name)
         spell.y = 275
+        if "DMG" in spell.name:
+            spell.damage = 1
+            spell.name = spell.name.split(' ')[1]
+        else:
+            spell.damage = 0
 
+    def draw(spell, ctx, image):
+        if spell.damage == 1:
+            if spell.name in ["Bludgeoning", "Piercing", "Slashing"]:
+                halfRec(ctx)
+                if spell.name == "Bludgeoning":
+                    pass
+                elif spell.name == "Piercing":
+                    pass
+                elif spell.name == "Slashing":
+                    pass
+            elif spell.name == "Force":
+                smallHalfRec(ctx)
+                equals(ctx)
+            
+            elif spell.name == "Fire":
+                pass
+            elif spell.name == "Cold":
+                pass
+            elif spell.name == "Lightning":
+                pass
+            elif spell.name == "Thunder":
+                pass
+            elif spell.name == "Acid":
+                pass
+            elif spell.name == "Poison":
+                pass
+            elif spell.name == "Necrotic":
+                pass
+            elif spell.name == "Radiant":
+                pass
+            elif spell.name == "Psychic":
+                pass
+        elif spell.name == "Buff":
+                pass
+        elif spell.name == "Debuff":
+                pass
+        elif spell.name == "Negation":
+                pass
+        elif spell.name == "Healing":
+                pass
+        elif spell.name == "Warding":
+                pass
+        elif spell.name == "Summoning":
+                pass
+        elif spell.name == "Banishment":
+                pass
+        elif spell.name == "Creation":
+                pass
+        elif spell.name == "Exploration":
+                pass
+        elif spell.name == "Environment":
+                pass
+        elif spell.name == "Detection":
+                pass
+        elif spell.name == "Foreknowledge":
+                pass
+        elif spell.name == "Scrying":
+                pass
+        elif spell.name == "Deception":
+                pass
+        elif spell.name == "Social":
+                pass
+        elif spell.name == "Communication":
+                pass
+        elif spell.name == "Shapechanging":
+                pass
+        elif spell.name == "Movement":
+                pass
+        elif spell.name == "Teleportation":
+                pass
+        elif spell.name == "Control":
+                pass
+        elif spell.name == "Utility":
+                pass
+        
+class Range(Identity):
+    def __init__(spell, name):
+          super().__init__(name)
 
+    def draw(spell, ctx, image):
+        if spell.name == "Self":
+            pass
+        elif spell.name == "Touch":
+            pass
+        elif spell.name == "5 Feet":
+            pass
+        elif spell.name == "10 Feet":
+            pass
+        elif spell.name == "30 Feet":
+            pass
+        elif spell.name == "60 Feet":
+            pass
+        elif spell.name == "90 Feet":
+            pass
+        elif spell.name == "100 Feet":
+            pass
+        elif spell.name == "120 Feet":
+            pass
+        elif spell.name == "150 Feet":
+            pass
+        elif spell.name == "300 Feet":
+            pass
+        elif spell.name == "500 Feet":
+            pass
+        elif spell.name == "1 Mile":
+            pass
+        elif spell.name == "Sight":
+            pass
+
+class Duration(Identity):
+    def __init__(spell, name):
+          super().__init__(name)
+
+    def draw(spell, ctx, image):
+        if spell.name == "Instant":
+            pass
+        elif spell.name == "1 Round":
+            pass
+        elif spell.name == "1 Minute":
+            pass
+        elif spell.name == "10 Minutes":
+            pass
+        elif spell.name == "1 Hour":
+            pass
+        elif spell.name == "8 Hours":
+            pass
+        elif spell.name == "10 Hours":
+            pass
+        elif spell.name == "24 Hours":
+            pass
+        elif spell.name == "7 Days":
+            pass
+        elif spell.name == "10 Days":
+            pass
+        elif spell.name in "Concentration 1 Min.":
+            pass
+        elif spell.name in "Concentration 10 Min.":
+            pass
+        elif spell.name in "Concentration 1 Hr.":
+            pass
+        elif spell.name in "Concentration 8 Hr.":
+            pass
+        elif spell.name in "Concentration 24 Hr.":
+            pass
+        elif spell.name == "30 Days":
+            pass
+
+class Save(Identity):
+    def __init__(spell, name):
+          super().__init__(name)
+
+    def draw(spell, ctx, image):
+        if spell.name == "None":
+            return
+        elif spell.name == "Dexterity":
+            pass
+        elif spell.name == "Constitution":
+            pass
+        elif spell.name == "Wisdom":
+            pass
+        elif spell.name == "Strength":
+            pass
+        elif spell.name == "Charisma":
+            pass
+        elif spell.name == "Intelligence":
+            pass
+         
 
 def main():
     image = pixie.Image(2000,2000)
