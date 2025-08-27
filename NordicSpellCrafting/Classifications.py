@@ -1,6 +1,7 @@
 import pixie
 
 """TODO 1. In the spell class, make a function that takes the x and y values of each piece and does the correct calculation to rotate in the correct directions
+        1.5 Might need to make a half rectangle function for things like 120 ft.
         2. Make a second function that does the same thing for diagonals
         3. For the Deception, Shapechanging, and Detection stave heads would need an if statement to change line length.
         4. Make the components for the spell components (i.e. lines, curves, semicircles, etc.)
@@ -13,16 +14,16 @@ fill = pixie.Paint(pixie.SOLID_PAINT)
 fill.color = pixie.parse_color("#FFFFFF")
 
 
-def smallCurve(image, x=0, y=0):
+def smallCurve(image, x, y, flip=0):
     path = pixie.parse_path(
-    """
+    f"""
     M 900 200
     A 100 100 90 0 0 1100 200
     """
     )
     image.stroke_path(path, paint, stroke_width=20)
         
-def bigCurve(image): # This is only used in the top most section of the initial rune
+def bigCurve(image): # Stave only
     path = pixie.parse_path(
         """
         M 1150 200
@@ -31,35 +32,40 @@ def bigCurve(image): # This is only used in the top most section of the initial 
     )
     image.stroke_path(path, paint, stroke_width=20)
 
-def halfRec(ctx):
+def halfRec(ctx, flip=0): # Stave only
     ctx.stroke_segment(850, 200, 850, 350)
     ctx.stroke_segment(840, 350, 1160, 350)
     ctx.stroke_segment(1150, 350, 1150, 200)
 
-def smallHalfRec(ctx):
+def smallHalfRec(ctx, y, flip=0): # Stave only?
     ctx.stroke_segment(850, 200, 850, 325)
     ctx.stroke_segment(840, 325, 1160, 325)
     ctx.stroke_segment(1150, 325, 1150, 200)
 
-def mainLine(ctx, x=0, y=0):
+def mainLine(ctx, x, y):
     ctx.stroke_segment(x, y, 1000, 1000)
 
-def line(ctx, x1=0, y1=0, x2=0, y2=0):
-    ctx.stroke_segment(910, 260, 1090, 260)
+def line(ctx, pos=0, rotate=0):
+# Unlike many other functions, this one only needs a 1 if it is a vertical line
+# 60 past the top of the section
+    if rotate == 1:
+        ctx.stroke_segment(pos, 910, pos, 1090)
+    else: 
+        ctx.stroke_segment(910, pos, 1090, pos)
 
-def sidewaysX(ctx, x=0, y=0):
+def sidewaysX(ctx, x, y, flip=0):
     ctx.stroke_segment(920, 290, 1080, 220)
     ctx.stroke_segment(920, 220, 1080, 290)
 
-def pointUp(ctx):
+def pointUp(ctx, x, y, flip=0):
     ctx.stroke_segment(925, 280, 1006, 195)
     ctx.stroke_segment(994, 195, 1075, 280)
 
-def pointDown(ctx):
+def pointDown(ctx, x, y, flip=0):
     ctx.stroke_segment(925, 210, 1006, 295)
     ctx.stroke_segment(994, 295, 1075, 210)
 
-def curveDown(image):
+def curveDown(image, x, y, flip=0):
     path = pixie.parse_path(
     """
     M 925 275
@@ -68,7 +74,7 @@ def curveDown(image):
     )
     image.stroke_path(path, paint, stroke_width=20)
 
-def lineCirc(image):
+def lineCirc(image, x, y, flip=0):
     path = pixie.parse_path(
     """
     M 950 250
@@ -78,18 +84,18 @@ def lineCirc(image):
     )
     image.stroke_path(path, paint, stroke_width=20)
 
-def halfArrowR(ctx):
+def halfArrowR(ctx, x, y, flip=0):
     ctx.stroke_segment(1005, 205, 1050, 310)
 
-def keyblade(ctx):
+def keyblade(ctx, x, y, flip=0):
     ctx.stroke_segment(1000, 210, 1080, 210)
     ctx.stroke_segment(1000, 240, 1080, 240)
 
-def equals(ctx):
+def equals(ctx, x, y, flip=0):
     ctx.stroke_segment(925, 240, 1075, 240)
     ctx.stroke_segment(925, 270, 1075, 270)
 
-def flag(image):
+def flag(image, x, y, flip=0):
     path = pixie.parse_path(
     """
     M 1000 220
@@ -99,7 +105,7 @@ def flag(image):
     )
     image.stroke_path(path, paint, stroke_width=20)
 
-def diamond(image):
+def diamond(image, x, y, flip=0):
     path = pixie.parse_path(
     """
     M 1000 200
@@ -111,14 +117,14 @@ def diamond(image):
     )
     image.stroke_path(path, paint, stroke_width=20)
 
-def antlers(ctx):
+def antlers(ctx, x, y, flip=0): # Stave only
     ctx.stroke_segment(890, 250, 1110, 250)
     ctx.stroke_segment(900, 250, 900, 200)
     ctx.stroke_segment(945, 250, 945, 200)
     ctx.stroke_segment(1055, 250, 1055, 200)
     ctx.stroke_segment(1100, 250, 1100, 200)
 
-def smallLineCirc(image):
+def smallLineCirc(image, x, y, flip=0):
     path = pixie.parse_path(
     """
     M 960 240
@@ -128,7 +134,7 @@ def smallLineCirc(image):
     )
     image.stroke_path(path, paint, stroke_width=20)
 
-def smallFillCirc(image):
+def smallFillCirc(image, x, y, flip=0):
     path = pixie.parse_path(
     """
     M 965 240
@@ -140,7 +146,7 @@ def smallFillCirc(image):
     image.fill_path(path, fill)
     smallLineCirc(image)
 
-def doubleDots(image):
+def doubleDots(image, x, y, flip=0):
     path = pixie.parse_path(
     """
     M 940 300
@@ -153,7 +159,7 @@ def doubleDots(image):
     )
     image.fill_path(path, paint)
 
-def shieldedOrb(image):
+def shieldedOrb(image, x, y, flip=0):
     path = pixie.parse_path(
     """
     M 945 250
@@ -180,7 +186,7 @@ def shieldedOrb(image):
     )
     image.fill_path(path, paint)
 
-def strSave(ctx):
+def strSave(ctx, x, y):
     ctx.stroke_rect(900, 900, 200, 200)
     ctx.stroke_rect(950, 950, 100, 100)
 
@@ -193,7 +199,7 @@ class Identity:
 class School(Identity):
     def __init__(spell, name):
         super().__init__(name)
-        spell.y = 275
+        spell.y = 200
         if "DMG" in spell.name:
             spell.damage = 1
             spell.name = spell.name.split(' ')[1]
@@ -278,6 +284,7 @@ class School(Identity):
 class Range(Identity):
     def __init__(spell, name):
           super().__init__(name)
+          spell.y = 500
 
     def draw(spell, ctx, image):
         if spell.name == "Self":
@@ -312,6 +319,7 @@ class Range(Identity):
 class Duration(Identity):
     def __init__(spell, name):
           super().__init__(name)
+          spell.y = 700
 
     def draw(spell, ctx, image):
         if spell.name == "Instant":
@@ -379,6 +387,7 @@ def main():
 
 
     ctx.line_width = 20
+
 
 
     image.write_file("trying.png")
