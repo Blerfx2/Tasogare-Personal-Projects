@@ -37,14 +37,13 @@ good = [
     "Sporting", "Stable", "Steadfast", "Steady", "Stoic", "Strong", "Studious", "Suave", "Subtle", "Sweet",
     "Sympathetic", "Systematic", "Tasteful", "Teacherly", "Thorough", "Tidy", "Tolerant", "Tractable",
     "Trusting", "Understanding", "Undogmatic", "Unfoolable", "Upright", "Urbane", "Venturesome", "Vivacious",
-    "Warm", "Well-bred", "Well-read", "Well-rounded", "Winning", "Wise", "Witty", "Youthful"
+    "Warm", "Well-read", "Well-rounded", "Winning", "Wise", "Witty", "Youthful"
 ]
 
 neutral = [
     "Absentminded", "Aggressive", "Ambitious", "Amusing", "Artful", "Ascetic", "Authoritarian", "Big-thinking",
     "Boyish", "Breezy", "Businesslike", "Busy", "Casual", "Cerebral", "Chummy", "Circumspect", "Competitive",
-    "Complex", "Confidential", "Conservative", "Contradictory", "Crisp", "Cute", "Deceptive", "Determined",
-    "Dominating", "Dreamy", "Driving", "Droll", "Dry", "Earthy", "Effeminate", "Emotional", "Enigmatic",
+    "Complex", "Confidential", "Conservative", "Contradictory", "Crisp", "Cute", "Deceptive", "Determined", "Dreamy", "Driving", "Droll", "Dry", "Earthy", "Effeminate", "Emotional", "Enigmatic",
     "Experimental", "Familial", "Folksy", "Formal", "Freewheeling", "Frugal", "Glamorous", "Guileless",
     "High-spirited", "Hurried", "Hypnotic", "Iconoclastic", "Idiosyncratic", "Impassive", "Impersonal",
     "Impressionable", "Intense", "Invisible", "Irreligious", "Irreverent", "Maternal", "Mellow", "Modern",
@@ -81,13 +80,13 @@ bad = [
     "Narcissistic", "Narrow", "Narrow-minded", "Natty", "Negativistic", "Neglectful", "Neurotic", "Nihilistic",
     "Obnoxious", "Obsessive", "Obvious", "Odd", "Offhand", "One-dimensional", "One-sided", "Opinionated",
     "Opportunistic", "Oppressed", "Outrageous", "Overimaginative", "Paranoid", "Passive", "Pedantic", "Perverse",
-    "Petty", "Pharisaical", "Phlegmatic", "Plodding", "Pompous", "Possessive", "Power-hungry", "Predatory",
+    "Petty", "Pharisaical", "Phlegmatic", "Plodding", "Pompous", "Possessive", "Power-hungry",
     "Prejudiced", "Presumptuous", "Pretentious", "Prim", "Procrastinating", "Profligate", "Provocative",
     "Pugnacious", "Puritanical", "Quirky", "Reactionary", "Reactive", "Regimental", "Regretful", "Repentant",
     "Repressed", "Resentful", "Ridiculous", "Rigid", "Ritualistic", "Rowdy", "Ruined", "Sadistic",
     "Sanctimonious", "Scheming", "Scornful", "Secretive", "Sedentary", "Selfish", "Self-indulgent", "Shallow",
     "Shortsighted", "Shy", "Silly", "Single-minded", "Sloppy", "Slow", "Sly", "Small-thinking", "Softheaded",
-    "Sordid", "Steely", "Stiff", "Strong-willed", "Stupid", "Submissive", "Superficial", "Superstitious",
+    "Sordid", "Steely", "Stiff", "Strong-willed", "Stupid", "Superficial", "Superstitious",
     "Suspicious", "Tactless", "Tasteless", "Tense", "Thievish", "Thoughtless", "Timid", "Transparent",
     "Treacherous", "Trendy", "Troublesome", "Unappreciative", "Uncaring", "Uncharitable", "Unconvincing",
     "Uncooperative", "Uncreative", "Uncritical", "Unctuous", "Undisciplined", "Unfriendly", "Ungrateful",
