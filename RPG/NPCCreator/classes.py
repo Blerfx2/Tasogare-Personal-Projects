@@ -9,11 +9,17 @@ class Species:
 
     def pickHair(self):
         hairLength = ["long", "short", "shoulder length"]
-        hairColor = ["brown", "brunette", "blonde", "orange", "red", "strawberry blonde", "black"]
+        hairColor1 = ["brown", "blonde", "black", "gray", "white"]
+        hairColor2 = ["orange", "red", "strawberry blonde"]
         hairType = ["straight", "curly", "wavy", "no", "braided", "coiled"]
         chosenHair = random.choice(hairType)
+        colorNum = random.randint(1,10)
+        if colorNum < 7:
+            chosenColor = random.choice(hairColor1)
+        else:
+            chosenColor = random.choice(hairColor2)
         if chosenHair != "no":
-            return f"{random.choice(hairLength)}, {chosenHair}, {random.choice(hairColor)} hair,"
+            return f"{random.choice(hairLength)}, {chosenHair}, {random.choice(chosenColor)} hair,"
         else:
             return f"{chosenHair} hair,"
         
@@ -24,6 +30,14 @@ class Species:
             return self.pickHair() + f" {selected} horns,"
         else:
             return f" {selected} horns,"
+        
+    def determineHeight(mini, maxi):
+        foot = random.randint(mini,maxi)
+        if mini != maxi and foot != maxi:
+            inches = random.randint(0,5)
+        else:
+            inches = random.randint(0,11)
+        return f"{foot}' {inches}\""
     
 class Elf(Species):
     def __init__(self):
@@ -45,7 +59,7 @@ class Elf(Species):
         super().__init__()
         self.species = "Elf"
         self.skin = random.choice(["silvery", "coppery", "golden", "pale gray"])
-        self.height = f"{random.randint(4,6)}'{random.randint(0,11)}\""
+        self.height = self.determineHeight(4,6)
         self.hair = self.pickHair()
 
 class Human(Species):
@@ -101,7 +115,7 @@ class Dwarf(Species):
         super().__init__()
         self.species = "Dwarf"
         self.skin = f"{random.choice(["pale ", "light ", "", "darker ", "tanned "])} {random.choice(["white", "brown", "dark"])}"
-        self.height = f"4'{random.randint(0,11)}\""
+        self.height = self.determineHeight(4,4)
         self.hair = self.pickHair()
 
 class Halfling(Species):
@@ -130,7 +144,7 @@ class Halfling(Species):
         super().__init__()
         self.species = random.choice(["Halfling", "Gnome"])
         self.skin = f"{random.choice(["pale ", "light ", "", "darker ", "tanned "])} {random.choice(["white", "brown", "dark"])}"
-        self.height = f"3'{random.randint(0,11)}\""
+        self.height = self.determineHeight(3,3)
         self.hair = self.pickHair()
 
 class Tiefling(Species):
@@ -194,7 +208,7 @@ class Tiefling(Species):
         self.skin = random.choice(["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", 
         "black", "white", "gray", "cyan", "magenta", "lime", "navy", "olive",
         "teal", "maroon", "crimson", "indigo", "violet", "rainbow"])
-        self.height = f"{random.randint(5,6)}'{random.randint(0,11)}\""
+        self.height = self.determineHeight(5,6)
         self.hair = self.pickHorns()
 
 class Bestial(Species):
@@ -229,7 +243,7 @@ class Bestial(Species):
         "Goblin", "Harengon", "Kenku", "Kobold", "Minotaur", "Tabaxi", "Plasmoid", "Owlin", "Leonin", "Loxodon", "Tortle", "Grung"])
         self.skin = random.choice(["red", "blue", "green", "yellow", "purple", "orange", "brown", 
         "black", "white", "gray", "cyan", "navy", "olive", "teal", "maroon", "crimson", "indigo", "violet", "gray"])
-        self.height = f"{random.randint(5,7)}'{random.randint(0,11)}\""
+        self.height = self.determineHeight(5,7)
         self.hair = self.pickHair()
 
 class Lizardfolk(Species):
@@ -260,5 +274,5 @@ class Lizardfolk(Species):
         super().__init__()
         self.skin = random.choice(["red", "blue", "green", "yellow", "purple", "orange", "brown", 
         "black", "white", "gray", "cyan", "navy", "olive", "teal", "maroon", "crimson", "indigo", "violet", "gray"])
-        self.height = f"{random.randint(4,6)}'{random.randint(0,11)}\""
+        self.height = self.determineHeight(4,6)
         self.hair = self.pickHorns()
