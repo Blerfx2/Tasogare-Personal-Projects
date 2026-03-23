@@ -31,7 +31,7 @@ class Species:
         else:
             return f" {selected} horns,"
         
-    def determineHeight(mini, maxi):
+    def determineHeight(self, mini, maxi):
         foot = random.randint(mini,maxi)
         if mini != maxi and foot != maxi:
             inches = random.randint(0,5)
