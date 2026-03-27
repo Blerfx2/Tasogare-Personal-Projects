@@ -19,7 +19,7 @@ class Species:
         else:
             chosenColor = random.choice(hairColor2)
         if chosenHair != "no":
-            return f"{random.choice(hairLength)}, {chosenHair}, {random.choice(chosenColor)} hair,"
+            return f"{random.choice(hairLength)}, {chosenHair}, {chosenColor} hair,"
         else:
             return f"{chosenHair} hair,"
         
