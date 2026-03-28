@@ -1,0 +1,120 @@
+NPC: 1
+Name: Gale the Spirit Guide
+They are a female lizardfolk who is a helpful, intense, muddle-headed, and prim person with 
+ chipped horns, and a maroon complexion.
+The person is a ten thousand year old dragon in disguise, just havin' a right giggle at causing all sorts of trouble.
+--------------------------------------------------------------------------------
+NPC: 2
+Name: Siobhan Nuada
+They are a female human who is a methodical, dominating, secretive, and impatient person with 
+short, straight, red hair, and a pale  brown complexion.
+This person tends to daydream. Sometimes he seems far off and is not listening. Even when he seems to listen closely, he asks to repeat the last part.
+--------------------------------------------------------------------------------
+NPC: 3
+Name: Tyler Softmeadow
+They are a male halfling who is a patriotic, preoccupied, outrageous, and persuasive person with 
+shoulder length, coiled, strawberry blonde hair, and a  brown complexion.
+This person never seems to be paying attention but can recite back anything said to him/her/them word-for-word.
+--------------------------------------------------------------------------------
+NPC: 4
+Name: Tarem the Strong Shield
+They are a male lizardfolk who is a caring, predictable, regretful, and healthy person with 
+ split horns, and a purple complexion.
+This person melts and coos at the sight of any remotely 'cute' animal, from cats to dogs to fluffy and lethal owlbears.
+--------------------------------------------------------------------------------
+NPC: 5
+Name: Brunhild Bruvite
+They are a female dwarf who is a providential, political, pretentious, and outspoken person with 
+long, straight, brown hair, and a  brown complexion.
+This person is a sailor on shore leave. They're trying to pack in as much drinking, gambling, and general chicanery as possible before their crew sets sail.
+--------------------------------------------------------------------------------
+NPC: 6
+Name: Torment ShadowPlacehold
+They are a male tiefling who is a methodical, paternalistic, irascible, and superficial person with 
+short, wavy, orange hair, goat horns, and a brown complexion.
+This person has nine children, with another on the way. They'd do nearly anything for a night of peace and quiet.
+--------------------------------------------------------------------------------
+NPC: 7
+Name: Terasha ShadowPlacehold
+They are a female tiefling who is a attractive, deceptive, repressed, and urbane person with 
+short, straight, strawberry blonde hair, curved horns, and a brown complexion.
+This person sees any new piece of information as a potential deception.
+--------------------------------------------------------------------------------
+NPC: 8
+Name: Kosam the Storm Caller
+They are a male lizardfolk who is a efficient, contradictory, condemnatory, and scholarly person with 
+ curved horns, and a green complexion.
+This person also dreams of being an adventurer, but their parents, spouse, drinking buddies, etc. keep talking them out of it. They are constantly sneaking peeks at your armor and weaponry, trying to hide their jealousy.
+--------------------------------------------------------------------------------
+NPC: 9
+Name: Dagny Garavar
+They are a female dwarf who is a scholarly, impersonal, ridiculous, and effeminate person with 
+shoulder length, straight, red hair, and a light  white complexion.
+The person is a ten thousand year old dragon in disguise, just havin' a right giggle at causing all sorts of trouble.
+--------------------------------------------------------------------------------
+NPC: 10
+Name: William Proudcliff
+They are a male halfling who is a idealistic, solitary, greedy, and envious person with 
+short, wavy, red hair, and a light  brown complexion.
+The person can't stand being wrong and will try to destroy every reasoning that could show them this. If proven wrong, the person will sulk for days on end.
+--------------------------------------------------------------------------------
+NPC: 11
+Name: Fiona Scáthach
+They are a female human who is a dedicated, mystical, narrow, and respectful person with 
+long, coiled, orange hair, and a darker  dark complexion.
+The person can't stand being wrong and will try to destroy every reasoning that could show them this. If proven wrong, the person will sulk for days on end.
+--------------------------------------------------------------------------------
+NPC: 12
+Name: Damesh the Earth Shaker
+They are a male harengon who is a tidy, outspoken, amoral, and flamboyant person with 
+shoulder length, straight, strawberry blonde hair, and a gray complexion.
+This person has been learning a new instrument / writing on their next song, and insists on having the PCs listen to what they've been working on.
+--------------------------------------------------------------------------------
+NPC: 13
+Name: Bronagh Eogain
+They are a female human who is a studious, guileless, perverse, and arbitrary person with 
+shoulder length, straight, brunette hair, and a light  dark complexion.
+This person constantly reminisces about the golden ages or the 'good old days', even if the period they're alluding to wasn't that great.
+--------------------------------------------------------------------------------
+NPC: 14
+Name: Prudence ShadowPlacehold
+They are a female tiefling who is a punctual, conservative, unlovable, and multi-leveled person with 
+no hair, stubbed horns, and a lime complexion.
+This person goes starkly silent around anyone they find remotely attractive.
+--------------------------------------------------------------------------------
+NPC: 15
+Name: Borghild Vilock
+They are a female dwarf who is a gracious, dominating, unfriendly, and hesitant person with 
+shoulder length, wavy, brown hair, and a tanned  white complexion.
+This person is fixated on having the newest cutting edge gadgets, many of which don't work as advertised.
+--------------------------------------------------------------------------------
+NPC: 16
+Name: Brigid Drustan
+They are a female human who is a organized, driving, greedy, and sordid person with 
+long, coiled, red hair, and a pale  white complexion.
+This person swears every other sentence.
+--------------------------------------------------------------------------------
+NPC: 17
+Name: Balthor Bravite
+They are a male dwarf who is a clever, tough, profligate, and considerate person with 
+short, coiled, red hair, and a tanned  brown complexion.
+This person has nine children, with another on the way. They'd do nearly anything for a night of peace and quiet.
+--------------------------------------------------------------------------------
+NPC: 18
+Name: Tanum the Wind Walker
+They are a male lizardfolk who is a sympathetic, confidential, disputatious, and popular person with 
+ crowned horns, and a maroon complexion.
+This person has a beloved dog that follows them everywhere. The dog likes snuffling for treats in strangers' pockets.
+--------------------------------------------------------------------------------
+NPC: 19
+Name: Noah Sweetriver
+They are a male gnome who is a sharing, strict, airy, and uncaring person with 
+short, coiled, red hair, and a tanned  brown complexion.
+This person has no sense of direction and will always go the wrong way.
+--------------------------------------------------------------------------------
+NPC: 20
+Name: Amelia Softriver
+They are a female gnome who is a innovative, old-fashioned, unself-critical, and physical person with 
+no hair, and a darker  brown complexion.
+This person has been learning a new instrument / writing on their next song, and insists on having the PCs listen to what they've been working on.
+--------------------------------------------------------------------------------
