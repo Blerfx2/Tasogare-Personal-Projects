@@ -4,11 +4,9 @@ angle_degrees = 45
 angle_radians = angle_degrees * (3.14159 / 180)
 
 
-"""TODO 1. Make each draw function do a for loop with a range. Modify all functions to account for all directions
-        2 Might need to make a half rectangle function for things like 120 ft.
-        3. For the Deception, Shapechanging, and Detection stave heads would need an if statement to change line length.
-        4. Make the components for the spell components (i.e. lines, curves, semicircles, etc.)
-        5. Figure out how you want to mush the data together
+"""TODO 1. Make the horizontal and diagonls of each function
+        2. Figure out how to adjust for 9th level spells
+        3. May have to change ctx fill rules
         """
 paint = pixie.Paint(pixie.SOLID_PAINT)
 paint.color = pixie.parse_color("#000000")
@@ -17,34 +15,66 @@ fill = pixie.Paint(pixie.SOLID_PAINT)
 fill.color = pixie.parse_color("#FFFFFF")
 
 
-def smallCurve(image, y, rotation=0):
+def smallCurve(ctx, y, rotation=0):
 # y should normally be the top of the segment
-    if rotation in [1,3]:
-        y = 2000 - y
-    path = pixie.parse_path(
-    f"""
-    M 900 {y}
-    A 100 100 90 0 {rotation} 1100 {y}
-    """
-    )
-    image.stroke_path(path, paint, stroke_width=20)
-        
-def bigCurve(image, rotation = 0): # Stave only
-    y = 200
-    if rotation in [1,3]:
-        y = 2000 - y
-        rotation = 0
-    else:
-         rotation = 1
-    path = pixie.parse_path(
+    if rotation == 3:
+        smallCurve(ctx, y, 0)
+        smallCurve(ctx, y, 1)
+        smallCurve(ctx, y, 2)
+    elif rotation == 2:
+        y2 = 2000 - y
+        path = pixie.parse_path(
         f"""
-        M 1150 {y}
-        A 150 150 90 0 {rotation} 850 {y}
+        M {y} 900
+        A 100 100 90 0 1 {y} 1100
+        M {y2} 900
+        A 100 100 90 0 0 {y2} 1100
         """
-    )
-    image.stroke_path(path, paint, stroke_width=20)
+        )
+        ctx.path_stroke(path)
+    else:
+        if rotation == 1:
+            y = 2000 - y
+        path = pixie.parse_path(
+        f"""
+        M 900 {y}
+        A 100 100 90 0 {rotation} 1100 {y}
+        """
+        )
+        ctx.path_stroke(path)
+        
+def bigCurve(ctx, rotation = 0): # Stave only
+    y = 200
+    if rotation == 3:
+        bigCurve(ctx,0)
+        bigCurve(ctx,1)
+        bigCurve(ctx,2)
+    elif rotation == 2:
+        y2 = 2000 - y
+        path = pixie.parse_path(
+            f"""
+            M {y} 1150
+            A 150 150 90 0 0 {y} 850
+            M {y2} 1150
+            A 150 150 90 0 1 {y2} 850
+            """
+        )
+        ctx.path_stroke(path)
+    else:
+        if rotation == 1:
+            y = 2000 - y
+            rotation = 0
+        else:
+            rotation = 1
+        path = pixie.parse_path(
+            f"""
+            M 1150 {y}
+            A 150 150 90 0 {rotation} 850 {y}
+            """
+        )
+        ctx.path_stroke(path)
 
-def halfRec(ctx, rotation=0): # Stave only
+def staveRec(ctx, rotation=0): # Stave only
     y = 200
     if rotation == 0:
         y2 = y + 150
@@ -55,16 +85,32 @@ def halfRec(ctx, rotation=0): # Stave only
     ctx.stroke_segment(840, y2, 1160, y2)
     ctx.stroke_segment(1150, y2, 1150, y)
 
-def smallHalfRec(ctx, rotation=0): # Stave only?
-    y = 200
-    if rotation == 0:
-        y2 = y + 125
+def smallStaveRec(ctx, rotation=0): # Stave only
+    if rotation == 3:
+        smallStaveRec(ctx,0)
+        smallStaveRec(ctx,1)
+        smallStaveRec(ctx,2)
+    elif rotation == 2:
+        x = 200
+        x2 = x + 125
+        x3 = 2000 - x
+        x4 = x3 - 125
+        ctx.stroke_segment(x, 875, x2, 875)
+        ctx.stroke_segment(x2, 865, x2, 1135)
+        ctx.stroke_segment(x2, 1125, x, 1125)
+        ctx.stroke_segment(x3, 875, x4, 875)
+        ctx.stroke_segment(x4, 865, x4, 1135)
+        ctx.stroke_segment(x4, 1125, x3, 1125)
     else:
-        y = 2000 - y
-        y2 = y - 125
-    ctx.stroke_segment(850, y, 850, y2)
-    ctx.stroke_segment(840, y2, 1160, y2)
-    ctx.stroke_segment(1150, y2, 1150, y)
+        y = 200
+        if rotation == 0:
+            y2 = y + 125
+        else:
+            y = 2000 - y
+            y2 = y - 125
+        ctx.stroke_segment(875, y, 875, y2)
+        ctx.stroke_segment(865, y2, 1135, y2)
+        ctx.stroke_segment(1125, y2, 1125, y)
 
 def mainLine(ctx, full=0):
     if full == 0:
@@ -80,10 +126,15 @@ def mainLine(ctx, full=0):
 def line(ctx, pos=0, rotate=0):
 # Unlike many other functions, this one only needs a 1 if it is a vertical line
 # 60 past the top of the section
-    if rotate in [1,3]:
+    if rotate == 3:
+        line(ctx,pos,0)
+        line(ctx,pos,1)
+        line(ctx,pos,2)
+    elif rotate == 1:
         ctx.stroke_segment(910, 2000-pos, 1090, 2000-pos)
-    if rotate == 2:
+    elif rotate == 2:
         ctx.stroke_segment(pos, 910, pos, 1090)
+        ctx.stroke_segment(2000-pos, 910, 2000-pos, 1090)
     else: 
         ctx.stroke_segment(910, pos, 1090, pos)
 
@@ -99,53 +150,144 @@ def sidewaysX(ctx, y, rotation=0):
 
 def pointUp(ctx, y, rotation=0):
 # Pass in lower value. Usually is 5 less than base
-    if rotation == 0:
-        y2 = y + 85
+    if rotation == 3:
+        pointUp(ctx,y,0)
+        pointUp(ctx,y,1)
+        pointUp(ctx,y,2)
+    elif rotation == 2:
+        x = y
+        x2 = x + 85
+        x3 = 2000 - x
+        x4 = x3 - 85
+        ctx.stroke_segment(x2, 925, x,1006)
+        ctx.stroke_segment(x, 994, x2, 1075)
+        ctx.stroke_segment(x4, 925, x3,1006)
+        ctx.stroke_segment(x3, 994, x4, 1075)
     else:
-         y = 2000 - y
-         y2 = y - 85
-    ctx.stroke_segment(925, y2, 1006, y)
-    ctx.stroke_segment(994, y, 1075, y2)
+        if rotation == 0:
+            y2 = y + 85
+        else:
+            y = 2000 - y
+            y2 = y - 85
+        ctx.stroke_segment(925, y2, 1006, y)
+        ctx.stroke_segment(994, y, 1075, y2)
 
 def pointDown(ctx, y, rotation=0):
 # Pass in lower value. Usually is 10 more than base
-    if rotation == 0:
-        y2 = y + 85
+    if rotation == 3:
+        pointDown(ctx,y,0)
+        pointDown(ctx,y,1)
+        pointDown(ctx,y,2)
+    elif rotation == 2:
+        x = y
+        x2 = x + 85
+        x3 = 2000 - x
+        x4 = x3 - 85
+        ctx.stroke_segment(x, 925, x2,1006)
+        ctx.stroke_segment(x2, 994, x, 1075)
+        ctx.stroke_segment(x3, 925, x4,1006)
+        ctx.stroke_segment(x4, 994, x3, 1075)
     else:
-         y = 2000 - y
-         y2 = y - 85
-    ctx.stroke_segment(925, y, 1006, y2)
-    ctx.stroke_segment(994, y2, 1075, y)
+        if rotation == 0:
+            y2 = y + 85
+        else:
+            y = 2000 - y
+            y2 = y - 85
+        ctx.stroke_segment(925, y, 1006, y2)
+        ctx.stroke_segment(994, y2, 1075, y)
 
-def curveDown(image, y, rotation=0):
+def curveDown(ctx, y, rotation=0):
 # Usually y is 75 more than base
-    if rotation in [1,3]:
-        y = 2000 - y
-        rotation = 0
+    if rotation == 3:
+        curveDown(ctx, y, 0)
+        curveDown(ctx, y, 1)
+        curveDown(ctx, y, 2)
+    elif rotation == 2:
+        y2 = 2000 - y
+        path = pixie.parse_path(
+        f"""
+        M {y} 925
+        A 75 75 90 0 0 {y} 1075
+        M {y2} 925
+        A 75 75 90 0 1 {y2} 1075
+        """
+        )
+        ctx.path_stroke(path)
     else:
-        rotation = 1
-    path = pixie.parse_path(
-    f"""
-    M 925 {y}
-    A 75 75 90 0 1 1075 {y}
-    """
-    )
-    image.stroke_path(path, paint, stroke_width=20)
+        if rotation == 1:
+            y = 2000 - y
+            rotation = 0
+        else:
+            rotation = 1
+        path = pixie.parse_path(
+        f"""
+        M 925 {y}
+        A 75 75 90 0 {rotation} 1075 {y}
+        """
+        )
+        ctx.path_stroke(path)
 
-"TODO make a flag that accounts for moving on the x axis for all circles"
+def curveUp(ctx, y, rotation=0):
+# y should normally be the top of the segment
+    if rotation == 3:
+        curveUp(ctx, y, 0)
+        curveUp(ctx, y, 1)
+        curveUp(ctx, y, 2)
+    elif rotation == 2:
+        y2 = 2000 - y
+        path = pixie.parse_path(
+        f"""
+        M {y} 925
+        A 75 75 90 0 1 {y} 1075
+        M {y2} 925
+        A 75 75 90 0 0 {y2} 1075
+        """
+        )
+        ctx.path_stroke(path)
+    else:
+        if rotation == 1:
+            y = 2000 - y
+        path = pixie.parse_path(
+        f"""
+        M 925 {y}
+        A 75 75 90 0 {rotation} 1075 {y}
+        """
+        )
+        ctx.path_stroke(path)
 
-def lineCirc(image, y, rotation=0):
+def lineCirc(ctx, y, rotation=0):
 # y is usually 50 from base?
-    if rotation in [1,3]:
-        y = 2000 - y
-    path = pixie.parse_path(
-    f"""
-    M 950 {y}
-    A 50 50 90 0 1 1050 {y}
-    A 50 50 90 0 1 950 {y}
-    """
-    )
-    image.stroke_path(path, paint, stroke_width=20)
+    if rotation == 3:
+        lineCirc(ctx,y,0)
+        lineCirc(ctx,y,1)
+        lineCirc(ctx,y,2)
+    elif rotation == 2:
+        x = y
+        x2 = 2000 - y
+
+        path = pixie.parse_path(
+        f"""
+        M {x} 950
+        A 50 50 90 0 1 {x} 1050
+        A 50 50 90 0 1 {x} 950
+        M {x2} 950
+        A 50 50 90 0 1 {x2} 1050
+        A 50 50 90 0 1 {x2} 950
+        """
+        )
+        ctx.path_stroke(path)
+    else:
+        if rotation == 1:
+            y = 2000 - y
+
+        path = pixie.parse_path(
+        f"""
+        M 950 {y}
+        A 50 50 90 0 1 1050 {y}
+        A 50 50 90 0 1 950 {y}
+        """
+        )
+        ctx.path_stroke(path)
 
 def halfArrowR(ctx, y, rotation=0):
 # Pass in lower value. Usually is 5 more than base
@@ -160,15 +302,51 @@ def halfArrowR(ctx, y, rotation=0):
 
 def keyblade(ctx, y, rotation=0):
 # Pass in lower value. Usually is 10 more than base
-    if rotation == 0:
+    if rotation == 3:
+         keyblade(ctx, y, 0)
+         keyblade(ctx, y, 1)
+         keyblade(ctx, y, 2)
+    if rotation == 2:
         x = 1080
         y2 = y + 30
+        x2 = 920
+        y3 = 2000 - y
+        y4 = y3 - 30
+        ctx.stroke_segment(y, 1000, y, x2)
+        ctx.stroke_segment(y2, 1000, y2, x2)
+        ctx.stroke_segment(y3, 1000, y3, x)
+        ctx.stroke_segment(y4, 1000, y4, x)
     else:
-        x = 920
-        y = 2000 - y
-        y2 = y - 30
-    ctx.stroke_segment(1000, y, x, y)
-    ctx.stroke_segment(1000, y2, x, y2)
+        if rotation == 0:
+            x = 1080
+            y2 = y + 30
+        else:
+            x = 920
+            y = 2000 - y
+            y2 = y - 30
+        ctx.stroke_segment(1000, y, x, y)
+        ctx.stroke_segment(1000, y2, x, y2)
+
+def halfLine(ctx, y, rotation=0):
+# Pass in lower value. Usually is 10 more than base
+    if rotation == 3:
+         halfLine(ctx, y, 0)
+         halfLine(ctx, y, 1)
+         halfLine(ctx, y, 2)
+    if rotation == 2:
+        x = 1080
+        y2 = 2000 - y
+        x2 = 920
+        ctx.stroke_segment(y, 1000, y, x2)
+        ctx.stroke_segment(y2, 1000, y2, x)
+    else:
+        if rotation == 0:
+            x = 1080
+            y2 = y + 30
+        else:
+            x = 920
+            y = 2000 - y
+        ctx.stroke_segment(1000, y, x, y)
 
 def equals(ctx, y, rotation=0):
 # Pass in lower value. Usually is 40 more than base
@@ -177,12 +355,12 @@ def equals(ctx, y, rotation=0):
     else:
         y = 2000 - y
         y2 = y - 30
-    ctx.stroke_segment(925, y, 1075, y2)
-    ctx.stroke_segment(925, y2, 1075, y)
+    ctx.stroke_segment(950, y, 1050, y)
+    ctx.stroke_segment(950, y2, 1050, y2)
 
-def flag(image, y, rotation=0):
+def flag(ctx, y, rotation=0):
     x = 1000
-    if rotation in [1,3]:
+    if rotation == 1:
         y2, y3, x2 = y - 50, y - 100, 940
     else:
         y2, y3, x2 = y + 50, y + 100, 1060
@@ -194,11 +372,11 @@ def flag(image, y, rotation=0):
     L {x} {y3}
     """
     )
-    image.stroke_path(path, paint, stroke_width=20)
+    ctx.path_stroke(path)
 
-def diamond(image, y, rotation=0):
+def diamond(ctx, y, rotation=0):
     x, x2, x3 = 1000, 950, 1050
-    if rotation in [1,3]:
+    if rotation == 1:
         y2, y3 = y - 50, y - 100
     else:
         y2, y3 = y + 50, y + 100
@@ -211,7 +389,7 @@ def diamond(image, y, rotation=0):
     Z
     """
     )
-    image.stroke_path(path, paint, stroke_width=20)
+    ctx.path_stroke(path)
 
 def antlers(ctx, rotation=0): # Stave only
     if rotation == 0:
@@ -225,39 +403,78 @@ def antlers(ctx, rotation=0): # Stave only
     ctx.stroke_segment(1055, y2, 1055, y)
     ctx.stroke_segment(1100, y2, 1100, y)
 
-def smallLineCirc(image, y, rotation=0):
+def smallLineCirc(ctx, y, rotation=0):
 # y is usually 40 from base
-    if rotation in [1,3]:
-        y = 2000 - y
+    if rotation == 3:
+        smallLineCirc(ctx,y,0)
+        smallLineCirc(ctx,y,1)
+        smallLineCirc(ctx,y,2)
+    elif rotation == 2:
+        x = y
+        x2 = 2000 - y
 
-    path = pixie.parse_path(
-    f"""
-    M 960 {y}
-    A 30 30 90 0 1 1040 {y}
-    A 30 30 90 0 1 960 {y}
-    """
-    )
-    image.stroke_path(path, paint, stroke_width=20)
+        path = pixie.parse_path(
+        f"""
+        M {x} 960
+        A 30 30 90 0 1 {x} 1040
+        A 30 30 90 0 1 {x} 960
+        M {x2} 960
+        A 30 30 90 0 1 {x2} 1040
+        A 30 30 90 0 1 {x2} 960
+        """
+        )
+        ctx.path_stroke(path)
+    else:
+        if rotation == 1:
+            y = 2000 - y
 
-def smallFillCirc(image, y, rotation=0):
+        path = pixie.parse_path(
+        f"""
+        M 960 {y}
+        A 30 30 90 0 1 1040 {y}
+        A 30 30 90 0 1 960 {y}
+        """
+        )
+        ctx.path_stroke(path)
+
+def smallFillCirc(ctx, y, rotation=0):
 # y is usually 40 from base
-    if rotation in [1,3]:
-        y = 2000 - y
+    if rotation == 3:
+        smallFillCirc(ctx,y,0)
+        smallFillCirc(ctx,y,1)
+        smallFillCirc(ctx,y,2)
+    elif rotation == 2:
+        y2 = 2000 - y
+        path = pixie.parse_path(
+        f"""
+        M {y} 965
+        A 20 20 90 0 1 {y} 1035
+        A 20 20 90 0 1 {y} 965
+        M {y2} 965
+        A 20 20 90 0 1 {y2} 1035
+        A 20 20 90 0 1 {y2} 965
+        """
+        )
+        ctx.path_fill(path)
+        smallLineCirc(ctx,y,2)
+    else:
+        if rotation == 1:
+            y = 2000 - y
 
-    path = pixie.parse_path(
-    f"""
-    M 965 {y}
-    A 20 20 90 0 1 1035 {y}
-    A 20 20 90 0 1 965 {y}
-    """
-    )
+        path = pixie.parse_path(
+        f"""
+        M 965 {y}
+        A 20 20 90 0 1 1035 {y}
+        A 20 20 90 0 1 965 {y}
+        """
+        )
+        ctx.fill_style = fill
+        ctx.path_fill(path)
+        smallLineCirc(ctx,y)
 
-    image.fill_path(path, fill)
-    smallLineCirc(image)
-
-def doubleDots(image, y, rotation=0):
+def doubleDots(ctx, y, rotation=0):
 # y is usually 100 from base
-    if rotation in [1,3]:
+    if rotation == 1:
         y = 2000 - y
     path = pixie.parse_path(
     f"""
@@ -269,11 +486,11 @@ def doubleDots(image, y, rotation=0):
     A 10 10 90 0 1 1040 {y}
     """
     )
-    image.fill_path(path, paint)
+    ctx.path_fill(path)
 
-def shieldedOrb(image, y, rotation=0):
+def shieldedOrb(ctx, y, rotation=0):
 # y is usually 50 from base
-    if rotation in [1,3]:
+    if rotation == 1:
         y = 2000 - y
     path = pixie.parse_path(
     f"""
@@ -283,14 +500,14 @@ def shieldedOrb(image, y, rotation=0):
     """
     )
 
-    image.fill_path(path, fill)
+    ctx.path_fill(path)
     path = pixie.parse_path(
     """
     M 965 215
     A 50 50 90 1 0 1035 215
     """
     )
-    image.stroke_path(path, paint, stroke_width=20)
+    ctx.path_stroke(path)
     path = pixie.parse_path(
     """
     M 980 255
@@ -299,32 +516,87 @@ def shieldedOrb(image, y, rotation=0):
 
     """
     )
-    image.fill_path(path, paint)
+    ctx.path_fill(path)
 
 def strSave(ctx, y):
     y2 = y + 50
     ctx.stroke_rect(900, y, 200, 200)
     ctx.stroke_rect(950, y2, 100, 100)
 
+def dexSave(ctx, y):
+    ctx.stroke_rect(900, y, 200, 200)
+
+def conSave(ctx, y):
+    ctx.fill_rect(900, y, 200, 200)
+    ctx.stroke_rect(900, y, 200, 200)
+
+def intSave(ctx, y):
+    path = pixie.parse_path(
+    f"""
+    M 900 {y}
+    A 100 100 90 0 1 1100 {y}
+    A 100 100 90 0 1 900 {y}
+    M 930 {y}
+    A 65 65 90 0 1 1070 {y}
+    A 65 65 90 0 1 930 {y}
+    """
+    )
+    ctx.path_stroke(path)
+
+def wisSave(ctx, y):
+    path = pixie.parse_path(
+    f"""
+    M 900 {y}
+    A 100 100 90 0 1 1100 {y}
+    A 100 100 90 0 1 900 {y}
+    """
+    )
+    ctx.path_stroke(path)
+
+def chaSave(ctx, y):
+    path = pixie.parse_path(
+    f"""
+    M 900 {y}
+    A 100 100 90 0 1 1100 {y}
+    A 100 100 90 0 1 900 {y}
+    """
+    )
+    ctx.path_fill(path)
+    ctx.path_stroke(path)
+
+def hugeCirc(ctx):
+    path = pixie.parse_path(
+    """
+    M 350 1000 
+    A 650 650 90 0 1 1650 1000
+    A 650 650 90 0 1 350 1000
+    """
+    )
+    ctx.path_stroke(path)
+
+def hugeDoubleCirc(ctx):
+    path = pixie.parse_path(
+    """
+    M 350 1000 
+    A 650 650 90 0 1 1650 1000
+    A 650 650 90 0 1 350 1000
+    M 400 1000 
+    A 600 600 90 0 1 1600 1000
+    A 600 600 90 0 1 400 1000
+    """
+    )
+    ctx.path_stroke(path)
+
+def hugeSquare(ctx):
+    ctx.stroke_rect(500, 500, 1000, 1000)
+
+def hugeDoubleSquare(ctx):
+    ctx.stroke_rect(450, 450, 1100, 1100)
+    ctx.stroke_rect(500, 500, 1000, 1000)
+
 class Identity:
     def __init__(spell, name):
         spell.name = name
-    
-    def collected(spell, functions, args, rotations, ctx, image):
-        for rotation in range(0,rotations+1):
-            if rotation == 3:
-                cx, cy = image.width / 2, image.height / 2
-                ctx.translate(cx, cy)
-                ctx.rotate(angle_radians)
-                ctx.translate(-cx, -cy)
-                mainLine(ctx,1)
-                mainLine(ctx,2)
-            for func, arg in zip(functions, args):
-                func(*arg, rotation)
-            if rotation == 4:
-                ctx.translate(cx, cy)
-                ctx.rotate(-angle_radians)
-                ctx.translate(-cx, -cy)
          
 
 class School(Identity):
@@ -341,34 +613,47 @@ class School(Identity):
         functions = []
         args = []
         if spell.damage == 1:
-            if spell.name in ["Bludgeoning", "Piercing", "Slashing"]:
-                halfRec(ctx)
+            if spell.name in ["Bludgeoning", "Piercing"]:
+                functions.append(smallStaveRec)
+                args.append([ctx])
                 if spell.name == "Bludgeoning":
-                    pass
+                    functions.append(lineCirc)
+                    args.append([ctx,spell.y+50])
                 elif spell.name == "Piercing":
-                    pass
+                    functions.append(pointUp)
+                    args.append([ctx,spell.y-10])
                 elif spell.name == "Slashing":
                     pass
+            elif spell.name == "Slashing":
+                functions.append(staveRec)
+                args.append([ctx])
             elif spell.name == "Force":
-                smallHalfRec(ctx)
-                equals(ctx)
+                functions.append(staveRec)
+                args.append([ctx])
+                functions.append(equals)
+                args.append([ctx,spell.y+40])
             
             else:
                 functions.append(bigCurve)
-                args.append([image])
+                args.append([ctx])
                 if spell.name == "Fire":
-                    pass
+                    functions.append(pointUp)
+                    args.append([ctx,spell.y-5])
                 elif spell.name == "Cold":
-                    pass
+                    functions.append(line)
+                    args.append([ctx, spell.y+60])
                 elif spell.name == "Lightning":
-                    pass
+                    functions.append(smallCurve)
+                    args.append([ctx,spell.y])
                 elif spell.name == "Thunder":
-                    pass
+                    functions.append(curveDown)
+                    args.append([ctx,spell.y+75])
                 elif spell.name == "Acid":
                     functions.append(keyblade)
                     args.append([ctx,spell.y+10])
                 elif spell.name == "Poison":
-                    pass
+                    functions.append(halfArrowR)
+                    args.append([ctx,spell.y+5])
                 elif spell.name == "Necrotic":
                     pass
                 elif spell.name == "Radiant":
@@ -417,7 +702,7 @@ class School(Identity):
                 pass
         elif spell.name == "Utility":
                 pass
-        super().collected(functions,args, rotation, ctx, image)
+        return functions, args
         
 class Range(Identity):
     def __init__(spell, name):
@@ -430,16 +715,19 @@ class Range(Identity):
         if spell.name == "Self":
             pass
         elif spell.name == "Touch":
-            pass
+            functions.append(curveDown)
+            args.append([ctx,spell.y])
         elif spell.name == "5 Feet":
-            pass
+            functions.append(halfLine)
+            args.append([ctx,spell.y])
         elif spell.name == "10 Feet":
-            pass
+            functions.append(doubleDots)
+            args.append([ctx,spell.y])
         elif spell.name == "30 Feet":
             pass
         elif spell.name == "60 Feet":
             functions.append(smallCurve)
-            args.append([image, spell.y])
+            args.append([ctx, spell.y])
         elif spell.name == "90 Feet":
             pass
         elif spell.name == "100 Feet":
@@ -455,8 +743,10 @@ class Range(Identity):
         elif spell.name == "1 Mile":
             pass
         elif spell.name == "Sight":
-            pass
-        super().collected(functions,args, rotation, ctx, image)
+            functions.append(smallFillCirc)
+            args.append([ctx, spell.y])
+
+        return functions, args
 
 class Duration(Identity):
     def __init__(spell, name):
@@ -470,11 +760,14 @@ class Duration(Identity):
             functions.append(line)
             args.append([ctx,spell.y])
         elif spell.name == "1 Round":
-            pass
+            functions.append(curveUp)
+            args.append([ctx, spell.y])
         elif spell.name == "1 Minute":
-            pass
+            functions.append(curveDown)
+            args.append([ctx, spell.y+75])
         elif spell.name == "10 Minutes":
-            pass
+            functions.append(pointDown)
+            args.append([ctx, spell.y])
         elif spell.name == "1 Hour":
             pass
         elif spell.name == "8 Hours":
@@ -499,52 +792,58 @@ class Duration(Identity):
             pass
         elif spell.name == "30 Days":
             pass
-        super().collected(functions,args, rotation, ctx, image)
+
+        return functions, args
 
 class Save(Identity):
-    def __init__(spell, name, cantrip):
+    def __init__(spell, name, level):
             super().__init__(name)
-            if cantrip == 1:
-                spell.y = 800
-            else:
+            if level >= 1:
                 spell.y = 900
+            else:
+                spell.y = 800
+            spell.level = level
 
 
-    def draw(spell, ctx, image):
-        functions = []
-        args = []
+    def draw(spell, ctx):
         if spell.name == "None":
             return
         elif spell.name == "Dexterity":
-            pass
+            dexSave(ctx,spell.y)
         elif spell.name == "Constitution":
-            pass
+            conSave(ctx,spell.y)
         elif spell.name == "Wisdom":
-            pass
+            wisSave(ctx,spell.y+100)
         elif spell.name == "Strength":
             strSave(ctx,spell.y)
         elif spell.name == "Charisma":
-            pass
+            chaSave(ctx,spell.y+100)
         elif spell.name == "Intelligence":
-            pass
-         
+            intSave(ctx,spell.y+100)
 
-
-
-
-    # Sideways
-
-    # ctx.stroke_segment(1000, 1000, 1800, 1000)
-
-    # spath = pixie.parse_path(
-    #     """
-    #     M 1800 900
-    #     A 100 100 0 0 0 1800 1100
-    #     M 1800 1150
-    #     A 150 150 0 0 1 1800 850
-    #     """
-    # )
-    # ctx.line_width = 20
-    # ctx.stroke_segment(1500, 905, 1500, 1095)
-    # ctx.stroke_segment(1300, 905, 1300, 1095)
-    # image.stroke_path(spath, paint, stroke_width=20)
+        if spell.level < 4:
+            return
+        elif spell.level < 6:
+            hugeCirc(ctx)
+        elif spell.level == 6:
+            hugeDoubleCirc(ctx)
+        elif spell.level < 9:
+            hugeSquare(ctx)
+        elif spell.level == 9:
+            hugeDoubleSquare(ctx)
+        
+def collected(functions, args, rotations, ctx, image):
+    for rotation in range(0,rotations+1):
+        if rotation == 3:
+            cx, cy = image.width / 2, image.height / 2
+            ctx.translate(cx, cy)
+            ctx.rotate(angle_radians)
+            ctx.translate(-cx, -cy)
+            mainLine(ctx,1)
+            mainLine(ctx,2)
+        for func, arg in zip(functions, args):
+            func(*arg, rotation)
+    if rotations == 3:
+        ctx.translate(cx, cy)
+        ctx.rotate(-angle_radians)
+        ctx.translate(-cx, -cy)
